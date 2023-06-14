@@ -1,8 +1,8 @@
 ﻿namespace GameBuddi;
 
-public partial class AppShell : Shell
+public partial class CarouselViewDemo : Shell
 {
-	public AppShell()
+	public CarouselViewDemo()
 	{
 		InitializeComponent();
 	}
