@@ -1,8 +1,8 @@
 ﻿namespace GameBuddi.Pages;
 
-public partial class CarouselView : ContentPage
+public partial class CarouselViewDemo : ContentPage
 {
-	public CarouselView()
+	public CarouselViewDemo()
 	{
 		InitializeComponent();
 	}
