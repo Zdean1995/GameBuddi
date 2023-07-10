@@ -1,4 +1,6 @@
-﻿namespace GameBuddi;
+﻿using GameBuddi.Pages;
+
+namespace GameBuddi;
 
 public partial class App : Application
 {
