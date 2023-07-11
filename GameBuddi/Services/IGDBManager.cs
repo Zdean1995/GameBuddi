@@ -24,7 +24,39 @@ namespace GameBuddi.Data
         public static async Task<Game[]> GetGames(string start)
         {
             return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: "fields name; limit 100;");
+        }
 
+        public static async Task<InvolvedCompany[]> GetGamesCompanies(Game game)
+        {
+            return await client.QueryAsync<InvolvedCompany>(IGDBClient.Endpoints.InvolvedCompanies, query: $"fields developer, publisher, company.*; where game = {game.Id};");
+        }
+
+        public static async Task<Company> GetCompany(string id)
+        {
+            var companies = await client.QueryAsync<Company>(IGDBClient.Endpoints.Companies, query: $"fields *; where id = {id}");
+            return companies.First();
+        }
+
+        public static async Task<Game[]> GetCompaniesGames(Company company)
+        {
+            List<long> gameIds = new List<long>();
+            if (company.Published != null)
+            {
+                gameIds.AddRange(company.Published.Ids);
+            }
+            if (company.Developed != null)
+            {
+                gameIds.AddRange(company.Developed.Ids.Except(gameIds));
+            }
+
+            if (gameIds.Any())
+            {
+                return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = ({string.Join(',', gameIds)});");
+            }
+            else
+            {
+                return Array.Empty<Game>();
+            }
         }
     }
 }
