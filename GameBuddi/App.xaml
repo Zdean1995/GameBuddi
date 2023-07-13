@@ -2,7 +2,10 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GameBuddi"
+             xmlns:local="clr-namespace:MauiAppGT"
+
              x:Class="GameBuddi.App">
+             x:Class="MauiAppGT.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
