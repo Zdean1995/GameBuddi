@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MauiAppGT.ViewModels;
+namespace GameBuddi.Viewmodels;
 
 [QueryProperty(nameof(Item), "Item")]
 public partial class GamesDetailViewModel : BaseViewModel
 {
     [ObservableProperty]
-    SampleItem item;
+    Game item;
 }

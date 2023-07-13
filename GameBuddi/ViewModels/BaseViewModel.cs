@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MauiAppGT.ViewModels;
+namespace GameBuddi.ViewModels;
 
 public partial class BaseViewModel : ObservableObject
 {
