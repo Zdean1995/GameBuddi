@@ -21,9 +21,9 @@ namespace GameBuddi.Data
             return games.First();
         }
 
-        public static async Task<Game[]> GetGames(int start)
+        public static async Task<Game[]> GetGames(string start)
         {
-            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields name, id; where id >={start} limit 100;");
+            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: "fields name; limit 100;");
         }
 
         public static async Task<InvolvedCompany[]> GetGamesCompanies(Game game)

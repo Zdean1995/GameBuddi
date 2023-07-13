@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="GameBuddi.AppShell"
+    x:Class="MauiAppGT.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:GameBuddi.Views"
-	xmlns:local="clr-namespace:GameBuddi">
+    xmlns:views="clr-namespace:MauiAppGT.Views"
+	xmlns:local="clr-namespace:MauiAppGT">
+    xmlns:local="clr-namespace:GameBuddi"
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"

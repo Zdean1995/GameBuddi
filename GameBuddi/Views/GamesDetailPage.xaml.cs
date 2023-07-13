@@ -1,8 +1,8 @@
 namespace GameBuddi.Views;
 
-public partial class GamesDetailPage : ContentPage
+public partial class GameDetailPage : ContentPage
 {
-	public GamesDetailPage()
+	public GameDetailPage()
 	{
 		InitializeComponent();
 	}

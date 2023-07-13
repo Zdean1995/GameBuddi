@@ -1,4 +1,4 @@
-﻿namespace GameBuddi.ViewModels;
+﻿namespace MauiAppGT.ViewModels;
 
 public partial class HomeViewModel : BaseViewModel
 {
