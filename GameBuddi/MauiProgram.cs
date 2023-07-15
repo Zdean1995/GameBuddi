@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using GameBuddi.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace GameBuddi;
 
@@ -18,7 +20,12 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+		builder.Services.AddSingleton<GamesViewModel>();
+        builder.Services.AddSingleton<CompaniesViewModel>();
 
-		return builder.Build();
+        builder.Services.AddTransient<GameDetailViewModel>();
+        builder.Services.AddTransient<CompanyDetailViewModel>();
+
+        return builder.Build();
 	}
 }
