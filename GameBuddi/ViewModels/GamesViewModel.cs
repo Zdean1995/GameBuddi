@@ -33,7 +33,7 @@ public partial class GamesViewModel : ObservableObject
     }
     public async Task PrevPage()
     {
-        startCount += 100;
+        startCount = 100;
         Games = await IGDBManager.GetGames(startCount.ToString());
 
     }
