@@ -16,7 +16,7 @@ public partial class GamesViewModel : ObservableObject
 
     public GamesViewModel()
     {
-        this.initTask = InitAsync();
+        initTask = InitAsync();
     }
 
     //https://www.damirscorner.com/blog/posts/20221021-AvoidAsyncCallsInViewmodelConstructors.html
@@ -33,7 +33,7 @@ public partial class GamesViewModel : ObservableObject
     }
     public async Task PrevPage()
     {
-        startCount = 100;
+        startCount -= 100;
         Games = await IGDBManager.GetGames(startCount.ToString());
 
     }
