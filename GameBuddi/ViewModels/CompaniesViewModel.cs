@@ -16,7 +16,7 @@ public partial class CompaniesViewModel : ObservableObject
 
     public CompaniesViewModel()
     {
-        this.initTask = InitAsync();
+        initTask = InitAsync();
     }
 
     private async Task InitAsync()
@@ -26,15 +26,17 @@ public partial class CompaniesViewModel : ObservableObject
 
     public async Task NextPage()
     {
-        startCount += 100;
+        startCount += 25;
         Companies = await IGDBManager.GetCompanies(startCount.ToString());
 
     }
     public async Task PrevPage()
     {
-        startCount += 100;
-        Companies = await IGDBManager.GetCompanies(startCount.ToString());
-
+        if (startCount != 0)
+        {
+            startCount -= 25;
+            Companies = await IGDBManager.GetCompanies(startCount.ToString());
+        }
     }
 
 }

@@ -23,11 +23,18 @@ namespace GameBuddi.Services
 
         public static async Task<Game[]> GetGames(string start)
         {
-            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields id, name; where id >= {start}; limit 100;");
+            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id >= {start}; limit 25;");
         }
         public static async Task<Game[]> GetGamesSearch(string searchText)
         {
-            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields id, name; where name = {searchText};");
+            try
+            {
+                return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"search \"{searchText}\"; fields *;  limit 25;");
+            }
+            catch
+            {
+                return Array.Empty<Game>();
+            }
         }
 
         public static async Task<InvolvedCompany[]> GetGamesCompanies(Game game)
@@ -42,11 +49,18 @@ namespace GameBuddi.Services
         }
         public static async Task<Company[]> GetCompanies(string start)
         {
-            return await client.QueryAsync<Company>(IGDBClient.Endpoints.Companies, query: $"fields id, name;  where id >= {start}; limit 100;");
+            return await client.QueryAsync<Company>(IGDBClient.Endpoints.Companies, query: $"fields id, name;  where id >= {start}; limit 25;");
         }
         public static async Task<Company[]> GetCompaniesSearch(string searchText)
         {
-            return await client.QueryAsync<Company>(IGDBClient.Endpoints.Companies, query: $"fields id, name; where name = {searchText};");
+            try
+            {
+                return await client.QueryAsync<Company>(IGDBClient.Endpoints.Companies, query: $"search \"{searchText}\"; fields *;  limit 25;");
+            }
+            catch
+            {
+                return Array.Empty<Company>();
+            }
         }
 
         public static async Task<Game[]> GetCompaniesGames(Company company)

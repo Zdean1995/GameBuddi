@@ -4,7 +4,7 @@ using IGDB.Models;
 
 namespace GameBuddi.ViewModels;
 
-[QueryProperty("Company", "Company")]
+[QueryProperty(nameof(Company), nameof(Company))]
 public partial class CompanyDetailViewModel : ObservableObject
 {
     [ObservableProperty]

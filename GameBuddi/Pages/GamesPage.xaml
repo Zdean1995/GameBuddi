@@ -3,27 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GameBuddi"
              xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
-             x:Class="GameBuddi.Pages.GamesPage">
+             x:Class="GameBuddi.Pages.GamesPage"
+             x:DataType="viewmodel:GamesViewModel"
+             xmlns:model="clr-namespace:IGDB.Models;assembly=IGDB">
 
     
 
 
 
     <StackLayout>
-           <Entry Placeholder="Search" x:Name="searchEntry" />
-         <Button Text="Company" Clicked="GoToCompanyPage" />
-        <ListView ItemsSource="{Binding Games}" ItemSelected="OnItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding ReleaseDate}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Button Text="Company" Command="{Binding CompanyPageCommand}" />
+        <HorizontalStackLayout>
+            <Entry Placeholder="Search" Text="{Binding SearchingText}" WidthRequest="100"/>
+            <Button Text="Search" 
+                    Command="{Binding SearchCommand}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout IsVisible="{Binding IsLoaded}">
+            <Button Text="Next Page" 
+                    Command="{Binding NextPageCommand}"/>
+            <Button Text="Prev Page" 
+                    Command="{Binding PrevPageCommand}"/>
+        </HorizontalStackLayout>
         
+        <Label
+                Text="Loading Games..."
+                IsVisible="{Binding IsLoading}"
+                />
 
-        
-     
-       
+        <Label
+                Text="No Games"
+                IsVisible="{Binding GamesEmpty}"
+                />
+        <ScrollView VerticalOptions="FillAndExpand"
+                    IsVisible="{Binding IsLoaded}">
+            <CollectionView ItemsSource="{Binding Games}"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type model:Game}">
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GamesViewModel}}, Path=GameDetailsCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}" />
+                                <Label Grid.Column="1" Text="{Binding Id}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
     </StackLayout>
 
 </ContentPage>

@@ -28,6 +28,17 @@ public static class UserEndpoints
         .WithName("GetUserById")
         .WithOpenApi();
 
+        group.MapGet("/{id}", async Task<Results<Ok<User>, NotFound>> (string username, GameBuddiAPIContext db) =>
+        {
+            return await db.User.AsNoTracking()
+                .FirstOrDefaultAsync(model => model.Username == username)
+                is User model
+                    ? TypedResults.Ok(model)
+                    : TypedResults.NotFound();
+        })
+        .WithName("GetUserByUsername")
+        .WithOpenApi();
+
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, User user, GameBuddiAPIContext db) =>
         {
             var affected = await db.User

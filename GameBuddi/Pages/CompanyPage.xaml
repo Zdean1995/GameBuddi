@@ -2,20 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameBuddi.Pages.CompanyPage"
-             Title="CompanyPage">
+             Title="CompanyPage"
+             xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
+             x:DataType="viewmodel:CompaniesViewModel"
+             xmlns:model="clr-namespace:IGDB.Models;assembly=IGDB">
       <StackLayout>
-     
-        <ListView ItemsSource="{Binding Companies}" ItemSelected="OnItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding ReleaseDate}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
 
-        
-     
-       
+
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding Companies}"
+                            VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type model:Company}">
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CompaniesViewModel}}, Path=GameDetailsCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}" />
+                                <Label Grid.Column="1" Text="{Binding Country}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
     </StackLayout>
 </ContentPage>

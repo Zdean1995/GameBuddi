@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using GameBuddi.Pages;
 using GameBuddi.Services;
 using IGDB;
 using IGDB.Models;
@@ -10,11 +12,24 @@ public partial class GamesViewModel : ObservableObject
     [ObservableProperty]
     Game[] games;
 
+    //A boolean used for telling the ui that the data is still loading
+    [ObservableProperty]
+    bool isLoading = true;
+    [ObservableProperty]
+    bool isLoaded = false;
+    [ObservableProperty]
+    bool gamesEmpty = false;
+    [ObservableProperty]
+    string searchingText = "";
+
     int startCount = 0;
+
+    [ObservableProperty]
+    int currentPage = 1;
 
     private readonly Task initTask;
 
-    public GamesViewModel(INavigation navigation)
+    public GamesViewModel()
     {
         initTask = InitAsync();
     }
@@ -23,23 +38,82 @@ public partial class GamesViewModel : ObservableObject
     private async Task InitAsync()
     {
         Games = await IGDBManager.GetGames(startCount.ToString());
+        GamesCheck();
+        Loaded();
     }
 
+    [RelayCommand]
     public async Task NextPage()
     {
-        startCount += 100;
-        Games = await IGDBManager.GetGames(startCount.ToString());
-
+        Loading();
+        startCount += 25;
+        CurrentPage++;
+        Games = await IGDBManager.GetGames(25.ToString());
+        GamesCheck();
+        Loaded();
     }
+
+    [RelayCommand]
     public async Task PrevPage()
     {
-        startCount -= 100;
-        Games = await IGDBManager.GetGames(startCount.ToString());
-
+        Loading();
+        if (startCount != 0)
+        {
+            startCount -= 25;
+            CurrentPage--;
+            Games = await IGDBManager.GetGames(startCount.ToString());
+        }
+        Loaded();
     }
 
-    public async Task Search(string searchText)
+    [RelayCommand]
+    public async Task Search()
     {
-        Games = await IGDBManager.GetGamesSearch(searchText);
+        Loading();
+        if (SearchingText != "") 
+        { 
+            Games = await IGDBManager.GetGamesSearch(SearchingText); 
+        }
+        GamesCheck();
+        Loaded();
+    }
+
+    [RelayCommand]
+    async Task GameDetails(Game game)
+    {
+        await Shell.Current.GoToAsync($"{nameof(GamesDetailPage)}",
+            new Dictionary<string, object>
+            {
+                    {nameof(Game), game}
+            });
+    }
+
+    [RelayCommand]
+    async Task CompanyPage()
+    {
+        await Shell.Current.GoToAsync($"{nameof(CompanyPage)}");
+    }
+
+    void GamesCheck()
+    {
+        if (Games.Length == 0)
+        {
+            GamesEmpty = true;
+        }
+        else
+        {
+            GamesEmpty = false;
+        }
+    }
+
+    void Loading()
+    {
+        IsLoading = true;
+        IsLoaded = false;
+    }
+    void Loaded()
+    {
+        IsLoading = false;
+        IsLoaded = true;
     }
 }
