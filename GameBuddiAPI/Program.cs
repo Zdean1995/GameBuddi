@@ -1,23 +1,34 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using GameBuddiAPI;
 using GameBuddiAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<GameBuddiAPIContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GameBuddiAPI") ?? throw new InvalidOperationException("Connection string 'GameBuddiAPIContext' not found.")));
+    options.UseSqlServer("Data Source=tcp:gamebuddi.database.windows.net,1433;Initial Catalog=GameBuddiServer;User Id=GameBuddiAdmin@gamebuddi;Password=7T@eGHkNCJ!nPPp&"));
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Game Buddi API",
+        Version = "v1"
+    });
+});
+
 var app = builder.Build();
+
+app.UseSwagger();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
