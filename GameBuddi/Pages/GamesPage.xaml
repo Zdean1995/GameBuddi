@@ -1,0 +1,29 @@
+﻿
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GameBuddi"
+             xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
+             x:Class="GameBuddi.Pages.GamesPage">
+
+    
+
+
+
+    <StackLayout>
+           <Entry Placeholder="Search" x:Name="searchEntry" />
+         <Button Text="Company" Clicked="GoToCompanyPage" />
+        <ListView ItemsSource="{Binding Games}" ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" Detail="{Binding ReleaseDate}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+
+        
+     
+       
+    </StackLayout>
+
+</ContentPage>

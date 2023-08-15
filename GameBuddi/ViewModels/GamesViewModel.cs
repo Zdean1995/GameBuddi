@@ -14,7 +14,7 @@ public partial class GamesViewModel : ObservableObject
 
     private readonly Task initTask;
 
-    public GamesViewModel()
+    public GamesViewModel(INavigation navigation)
     {
         initTask = InitAsync();
     }
