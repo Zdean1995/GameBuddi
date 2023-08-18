@@ -28,7 +28,7 @@ public static class UserEndpoints
         .WithName("GetUserById")
         .WithOpenApi();
 
-        group.MapGet("/{id}", async Task<Results<Ok<User>, NotFound>> (string username, GameBuddiAPIContext db) =>
+        group.MapGet("/{username}", async Task<Results<Ok<User>, NotFound>> (string username, GameBuddiAPIContext db) =>
         {
             return await db.User.AsNoTracking()
                 .FirstOrDefaultAsync(model => model.Username == username)
@@ -37,6 +37,17 @@ public static class UserEndpoints
                     : TypedResults.NotFound();
         })
         .WithName("GetUserByUsername")
+        .WithOpenApi();
+
+        group.MapGet("/{email}", async Task<Results<Ok<User>, NotFound>> (string email, GameBuddiAPIContext db) =>
+        {
+            return await db.User.AsNoTracking()
+                .FirstOrDefaultAsync(model => model.Email == email)
+                is User model
+                    ? TypedResults.Ok(model)
+                    : TypedResults.NotFound();
+        })
+        .WithName("GetUserByEmail")
         .WithOpenApi();
 
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, User user, GameBuddiAPIContext db) =>

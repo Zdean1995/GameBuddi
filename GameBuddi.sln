@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBuddi", "GameBuddi\GameBuddi.csproj", "{269D0811-9BE2-417A-AAA2-3B36C234B65B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBuddiAPI", "GameBuddiAPI\GameBuddiAPI.csproj", "{70892968-1235-4D76-AA36-1E96481E0BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameBuddiAPI", "GameBuddiAPI\GameBuddiAPI.csproj", "{70892968-1235-4D76-AA36-1E96481E0BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

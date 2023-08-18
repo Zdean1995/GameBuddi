@@ -28,6 +28,17 @@ public static class ReviewCommentEndpoints
         .WithName("GetReviewCommentById")
         .WithOpenApi();
 
+        group.MapGet("/{reviewId}", async Task<Results<Ok<ReviewComment[]>, NotFound>> (int id, GameBuddiAPIContext db) =>
+        {
+            return await db.ReviewComment.AsNoTracking().Where(model => model.ReviewId == id).ToArrayAsync()
+                is ReviewComment[] model
+                    ? TypedResults.Ok(model)
+                    : TypedResults.NotFound();
+        })
+        .WithName("GetReviewCommentsByReviewId")
+        .WithOpenApi();
+
+
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, ReviewComment reviewComment, GameBuddiAPIContext db) =>
         {
             var affected = await db.ReviewComment

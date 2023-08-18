@@ -18,7 +18,7 @@
             <Button Text="Search" 
                     Command="{Binding SearchCommand}"/>
         </HorizontalStackLayout>
-        <HorizontalStackLayout IsVisible="{Binding IsLoaded}">
+        <HorizontalStackLayout IsVisible="false">
             <Button Text="Next Page" 
                     Command="{Binding NextPageCommand}"/>
             <Button Text="Prev Page" 

@@ -15,12 +15,12 @@
                     Command="{Binding SearchCommand}"/>
         </HorizontalStackLayout>
         <Label
-                Text="Loading Games..."
+                Text="Loading Companies..."
                 IsVisible="{Binding IsLoading}"
                 />
 
         <Label
-                Text="No Games"
+                Text="No Companies"
                 IsVisible="{Binding CompaniesEmpty}"
                 />
         <ScrollView VerticalOptions="FillAndExpand"

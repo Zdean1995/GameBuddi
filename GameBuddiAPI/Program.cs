@@ -15,7 +15,7 @@ builder.Services.ConfigureSwaggerGen(setup =>
     setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Game Buddi API",
-        Version = "v1"
+        Version = "v2"
     });
 });
 
