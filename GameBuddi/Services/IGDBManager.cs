@@ -21,9 +21,15 @@ namespace GameBuddi.Services
             return games.First();
         }
 
+        public static async Task<Cover> GetCover(long id)
+        {
+            var covers = await client.QueryAsync<Cover>(IGDBClient.Endpoints.Covers, query: $"fields *; where id = {id};");
+            return covers.First();
+        }
+
         public static async Task<Game[]> GetGames(string start)
         {
-            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id >= {start}; limit 25;");
+            return await client.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id > {start}; limit 25;");
         }
         public static async Task<Game[]> GetGamesSearch(string searchText)
         {

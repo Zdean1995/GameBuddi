@@ -22,7 +22,10 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 		builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<LoginViewModel>();
+		builder.Services.AddSingleton<LoginViewModel>();
+
+        builder.Services.AddSingleton<CreateUserPage>();
+        builder.Services.AddSingleton<CreateUserViewModel>();
 
         builder.Services.AddSingleton<GamesPage>();
         builder.Services.AddSingleton<GamesViewModel>();

@@ -6,7 +6,18 @@
              xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
              x:DataType="viewmodel:GameDetailViewModel">
     <VerticalStackLayout>
-        <Label 
-            Text="{Binding Game.Name}" />
+        <Label Text="Loading"
+               IsVisible="{Binding IsLoading}"/>
+        <Grid IsVisible="{Binding IsLoaded}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding Game.Cover.Value.Url}"/>
+            <VerticalStackLayout>
+                <Label 
+                    Text="{Binding Game.Name}" />
+            </VerticalStackLayout>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

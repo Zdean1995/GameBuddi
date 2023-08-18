@@ -12,6 +12,7 @@
         <Entry Placeholder="Password" IsPassword="True" x:Name="passwordEntry" />
 
         <Button Text="Sign In" Command="{Binding LoginCommand}" />
+        <Button Text="Create Account" Command="{Binding CreateAccountCommand}" />
 
     </StackLayout>
 </ContentPage>

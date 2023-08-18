@@ -16,5 +16,11 @@ namespace GameBuddi.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(GamesPage)}");
         }
+
+        [RelayCommand]
+        async Task CreateAccount()
+        {
+            await Shell.Current.GoToAsync($"{nameof(CreateUserPage)}");
+        }
     }
 }

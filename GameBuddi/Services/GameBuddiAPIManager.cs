@@ -37,6 +37,7 @@ namespace GameBuddi.Services
 
             return JsonConvert.DeserializeObject<List<User>>(result);
         }
+
         public static async Task<IEnumerable<User>> GetUserReviews()
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
@@ -53,7 +54,7 @@ namespace GameBuddi.Services
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
                 return new User();
 
-            User user = new User()
+            User user = new()
             {
                 Username = username,
                 Email = email,
@@ -61,7 +62,7 @@ namespace GameBuddi.Services
             };
 
             HttpClient client = GetClient();
-            var msg = new HttpRequestMessage(HttpMethod.Post, $"{Url}parts");
+            var msg = new HttpRequestMessage(HttpMethod.Post, $"{Url}User");
 
             msg.Content = JsonContent.Create<User>(user);
 

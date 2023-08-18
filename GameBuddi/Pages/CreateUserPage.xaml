@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameBuddi.Pages.CreateUserPage"
+             Title="CreateUserPage"
+             xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
+             x:DataType="viewmodel:CreateUserViewModel">
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="Create New User"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Username"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Entry Placeholder="Username" Text="{Binding UsernameText}" WidthRequest="100"/>
+        <Label 
+            Text="Email"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Entry Placeholder="Email" Text="{Binding EmailText}" WidthRequest="100"/>
+        <Label 
+            Text="Password"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding PasswordText}" WidthRequest="100"/>
+        <Label 
+            Text="Confirm Password"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPasswordText}" WidthRequest="100"/>
+        <Button Text="Create Account" Command="{Binding CreateUserCommand}"/>
+        <Label 
+            Text="Password and Confirm Password Must Match"
+            IsVisible="{Binding Error}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

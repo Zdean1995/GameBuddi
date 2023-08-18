@@ -6,18 +6,33 @@
              xmlns:viewmodel="clr-namespace:GameBuddi.ViewModels"
              x:DataType="viewmodel:CompaniesViewModel"
              xmlns:model="clr-namespace:IGDB.Models;assembly=IGDB">
-      <StackLayout>
+    
+    <StackLayout>
+        <Button Text="Games" Command="{Binding GamePageCommand}" />
+        <HorizontalStackLayout>
+            <Entry Placeholder="Search" Text="{Binding SearchingText}" WidthRequest="100"/>
+            <Button Text="Search" 
+                    Command="{Binding SearchCommand}"/>
+        </HorizontalStackLayout>
+        <Label
+                Text="Loading Games..."
+                IsVisible="{Binding IsLoading}"
+                />
 
-
-        <ScrollView>
+        <Label
+                Text="No Games"
+                IsVisible="{Binding CompaniesEmpty}"
+                />
+        <ScrollView VerticalOptions="FillAndExpand"
+                    IsVisible="{Binding IsLoaded}">
             <CollectionView ItemsSource="{Binding Companies}"
-                            VerticalOptions="FillAndExpand">
+                            VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type model:Company}">
                         <Frame>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CompaniesViewModel}}, Path=GameDetailsCommand}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CompaniesViewModel}}, Path=CompanyDetailsCommand}"
                                                     CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <Grid>
@@ -26,7 +41,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Name}" />
-                                <Label Grid.Column="1" Text="{Binding Country}" />
+                                <Label Grid.Column="1" Text="{Binding Id}" />
                             </Grid>
                         </Frame>
                     </DataTemplate>
